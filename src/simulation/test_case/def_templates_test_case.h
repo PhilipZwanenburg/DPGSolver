@@ -32,6 +32,7 @@ You should have received a copy of the GNU General Public License along with DPG
 #define set_string_associations set_string_associations
 #define set_pde_related set_pde_related
 #define set_method_related set_method_related
+#define set_nonlinear_solver_related set_nonlinear_solver_related
 #define set_function_pointers set_function_pointers
 #define read_test_case_parameters read_test_case_parameters
 #define correct_invalid_test_case_parameters correct_invalid_test_case_parameters
@@ -56,6 +57,7 @@ You should have received a copy of the GNU General Public License along with DPG
 #define set_string_associations set_string_associations_c
 #define set_pde_related set_pde_related_c
 #define set_method_related set_method_related_c
+#define set_nonlinear_solver_related set_nonlinear_solver_related_c
 #define set_function_pointers set_function_pointers_c
 #define read_test_case_parameters read_test_case_parameters_c
 #define correct_invalid_test_case_parameters correct_invalid_test_case_parameters_c

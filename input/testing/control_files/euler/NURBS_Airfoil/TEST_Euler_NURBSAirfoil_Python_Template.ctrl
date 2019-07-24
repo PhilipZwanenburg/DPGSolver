@@ -1,0 +1,44 @@
+pde_name  euler
+pde_spec  steady/NURBS_Airfoil
+
+geom_name n-cube
+geom_spec nurbs_airfoil_o_grid
+
+#geometry_parameters_extension NACA0012_targetCL_tests_reference
+geometry_parameters_extension PYTH_TEMP_GEO_PARAMETERS_EXTENSION
+solution_extension NACA0012_targetCL_tests_reference
+test_case_extension NACA0012_targetCL_tests_reference
+optimization_extension NACA0012_targetCL_tests_reference
+
+dimension 2
+
+mesh_generator   n-cube/PYTH_TEMP_GEO_FILE
+mesh_format      gmsh
+mesh_domain      parametric
+mesh_type        quad
+mesh_level       PYTH_TEMP_ML PYTH_TEMP_ML
+mesh_path        ../meshes/
+
+# Simulation variables
+
+interp_tp  GL
+interp_si  WSH
+interp_pyr GLL
+
+basis_geom  bezier
+basis_sol   lagrange
+
+geom_representation  isoparametric
+geom_blending_tp     gordon_hall
+geom_blending_si     szabo_babuska_gen
+nurbs_enhanced_metrics  1
+
+p_ref    PYTH_TEMP_P PYTH_TEMP_P
+
+fe_method 1
+
+
+# Testing variables
+
+ml_range_test PYTH_TEMP_ML PYTH_TEMP_ML
+p_range_test  PYTH_TEMP_P PYTH_TEMP_P

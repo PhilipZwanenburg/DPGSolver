@@ -46,7 +46,7 @@ import sys
 CONST_Patch_Type = "Airfoil_Patch"
 CONST_EPS = 1E-9
 
-CONST_Output_file_name = "geometry_parameters_airfoil_P4_NumPtsXi17_Q1_NumPtsEta2.geo"
+CONST_Output_file_name = "geometry_parameters_airfoil_P3_NumPtsXi12_Q1_NumPtsEta2.geo"
 
 def NURBS_patch(xi,eta,BasisFunctionsList, ControlPoints_and_Weights, grad_index=None):
 
@@ -178,7 +178,7 @@ def plot_patch(patch_parameters):
 	plt.show(block=True)
 
 
-def output_file(patch_parameters):
+def output_file(patch_parameters, output_file_name):
 
 	"""
 	Output the file with the patch parameters. The DPG code will
@@ -209,7 +209,7 @@ def output_file(patch_parameters):
 			if ControlPoints_and_Weights[i][j] not in ControlPoints_and_Weights_list:
 				ControlPoints_and_Weights_list.append(ControlPoints_and_Weights[i][j])
 
-	with open(CONST_Output_file_name, "w") as fp:
+	with open(output_file_name, "w") as fp:
 
 		fp.write("/** Geometry parameters for test case: euler/steady/NURBS\n")
 		fp.write("*/\n\n")
@@ -312,9 +312,9 @@ def test():
 	xi_test = -0.25
 	eta_test = 0.5
 
-	print "C(xi, eta)    : " + str(NURBS_patch_function(xi_test, eta_test))
-	print "C_xi(xi,eta)  : " + str(NURBS_patch_function_del_xi(xi_test, eta_test))
-	print "C_eta(xi,eta) : " + str(NURBS_patch_function_del_eta(xi_test, eta_test))
+	print("C(xi, eta)    : " + str(NURBS_patch_function(xi_test, eta_test)))
+	print("C_xi(xi,eta)  : " + str(NURBS_patch_function_del_xi(xi_test, eta_test)))
+	print("C_eta(xi,eta) : " + str(NURBS_patch_function_del_eta(xi_test, eta_test)))
 	
 	return
 
@@ -327,8 +327,8 @@ def test():
 	del_x_del_eta_fd = (1./h) * (NURBS_patch_function(xi_test, eta_test + h)[0] - NURBS_patch_function(xi_test, eta_test)[0])
 	del_y_del_eta_fd = (1./h) * (NURBS_patch_function(xi_test, eta_test + h)[1] - NURBS_patch_function(xi_test, eta_test)[1])
 	
-	print "C_xi_fd(xi,eta)  : " + str([del_x_del_xi_fd, del_y_del_xi_fd])
-	print "C_eta_fd(xi,eta) : " + str([del_x_del_eta_fd, del_y_del_eta_fd])
+	print("C_xi_fd(xi,eta)  : " + str([del_x_del_xi_fd, del_y_del_xi_fd]))
+	print("C_eta_fd(xi,eta) : " + str([del_x_del_eta_fd, del_y_del_eta_fd]))
 	
 
 def main():
@@ -352,17 +352,18 @@ def main():
 	if CONST_Patch_Type == "User_Defined_Patch":
 		patch_parameters = User_Defined_Patch.get_patch_information()
 	elif CONST_Patch_Type == "Airfoil_Patch":
-		patch_parameters = Airfoil_Patch.get_patch_information()
+		patch_parameters = Airfoil_Patch.get_patch_information(P=3, num_ctrl_pts_xi=12)
 	elif CONST_Patch_Type == "Internal_Channel_Patch":
 		patch_parameters = Internal_Channel_Patch.get_patch_information()
 	else:
 		raise ValueError("Unknown Patch Type")
+	output_file_name = "geometry_parameters_airfoil_P3_NumPtsXi12_Q1_NumPtsEta2.geo"
 
 	# Parse command line arguments
 	if len(sys.argv) == 1:
 		# No command line arguments so plot and output the file
 		plot_patch(patch_parameters)
-		output_file(patch_parameters)
+		output_file(patch_parameters, output_file_name)
 
 	elif(sys.argv[1] == "plot"):
 		# Only plot the patch
@@ -370,7 +371,7 @@ def main():
 	
 	elif(sys.argv[1] == "output_file"):
 		# Only output the patch file
-		output_file(patch_parameters)
+		output_file(patch_parameters, output_file_name)
 
 
 if __name__ == "__main__":

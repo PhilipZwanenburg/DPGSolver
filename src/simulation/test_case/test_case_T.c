@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License along with DPG
 /** \file
  */
 
+#include <float.h>
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -56,6 +57,12 @@ static void set_method_related
 	 const struct Simulation*const sim   ///< \ref Simulation.
 	);
 
+/// Set nonlinear solver related parameters.
+static void set_nonlinear_solver_related
+	(struct Test_Case_T*const test_case, ///< \ref Test_Case_T.
+	 const struct Simulation*const sim   ///< \ref Simulation.
+	);
+
 /// \brief Set the function pointer members of \ref Test_Case_T.
 static void set_function_pointers
 	(struct Test_Case_T* test_case,    ///< \ref Test_Case_T.
@@ -77,6 +84,7 @@ struct Test_Case_T* constructor_Test_Case_T (const struct Simulation* sim)
 	set_string_associations(test_case,sim);
 	set_pde_related(test_case,sim);
 	set_method_related(test_case,sim);
+	set_nonlinear_solver_related(test_case,sim);
 
 	read_test_case_parameters(test_case,sim);
 	get_set_ind_num_flux(test_case->ind_num_flux);
@@ -271,6 +279,7 @@ static void read_test_case_parameters (struct Test_Case_T* test_case, const stru
 		read_skip_convert_const_i(line,"solver_type_i",&test_case->solver_type_i,NULL);
 		read_skip_convert_const_i(line,"lhs_terms",    &test_case->lhs_terms,    NULL);
 		read_skip_string_count_const_d("cfl_initial",&count_tmp,line,&test_case->cfl_initial);
+		read_skip_string_count_const_d("cfl_max",&count_tmp,line,&test_case->cfl_max);
 
 		read_skip_convert_const_i(line,"geom_parametrization",&test_case->geom_parametrization,NULL);
 
@@ -470,6 +479,15 @@ static const bool* get_compute_member_Boundary_Value_Input
 		break;
 	}
 	EXIT_ERROR("Should not have reached this point.\n");
+}
+
+static void set_nonlinear_solver_related
+	(struct Test_Case_T*const test_case, ///< \ref Test_Case_T.
+	 const struct Simulation*const sim   ///< \ref Simulation.
+	)
+{
+	UNUSED(sim);
+	test_case->cfl_max = 1e30;
 }
 
 static void set_function_pointers_start (struct Test_Case_T*const test_case)

@@ -10,7 +10,7 @@
 // =================================================================================
 
 optimizer_spec             NLPQLP
-optimizer_nlpqlp_abs_path  /Users/jm-034232/Documents/McGill/Research/DPGSolver/NLPQLP_Optimizer
+optimizer_nlpqlp_abs_path  /home/vassili/Desktop/DPGSolver/DPGSolver/NLPQLP_Optimizer/NLPQLP_Optimizer
 optimizer_output_files_prefix  Constrained_Inverse_Design/NACA0012_to_NACA4412_Structured/ml2_P1_NURBS_Y_CM_eq_0.1255_vfc_eq_1.0_
 
 // =================================================================================

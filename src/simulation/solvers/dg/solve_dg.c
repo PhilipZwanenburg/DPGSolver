@@ -312,7 +312,9 @@ static double compute_dt_cfl_constrained
 	double dx = compute_min_length_measure(s_vol,sim);
 
 	const double max_rhs_ratio = compute_max_rhs_ratio(max_rhs);
-	const double cfl = test_case->cfl_initial * ( max_rhs_ratio < 1.0 ? 1.0 : max_rhs_ratio );
+	double cfl = test_case->cfl_initial * ( max_rhs_ratio < 1.0 ? 1.0 : max_rhs_ratio );
+	if (cfl > test_case->cfl_max)
+		cfl = test_case->cfl_max;
 //printf("cfl: %f %f %f\n",cfl,dx,max_wave_speed);
 
 	return cfl*GSL_MIN(dx/max_wave_speed,( !test_case->has_2nd_order ? DBL_MAX : dx*dx/max_viscosity ));

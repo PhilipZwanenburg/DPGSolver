@@ -25,8 +25,7 @@ import scipy.integrate
 # The properties of the patch in the xi direction (which
 # traverses around the airfoil from the trailing edge, bottom
 # surface to the leading edge and back)
-CONST_P = 4
-CONST_NUM_CONTROL_PTS_XI = 17
+
 
 
 # Properties of the patch in the eta direction (eta increases in the 
@@ -416,7 +415,7 @@ def get_BSpline_control_points_discrete_least_square(BSpline_Basis, knots, n):
 	return Control_Pts
 
 
-def get_airfoil_BSpline_parameters():
+def get_airfoil_BSpline_parameters(P, num_ctrl_pts_xi):
 
 	"""
 	Get the parameters for the B Spline that will be used to 
@@ -434,8 +433,8 @@ def get_airfoil_BSpline_parameters():
 	"""
 
 	# Spline parameters
-	n = CONST_NUM_CONTROL_PTS_XI
-	p = CONST_P
+	n = num_ctrl_pts_xi
+	p = P
 	m = n + p + 1  # number of elements in knot vector
 
 	# Create a uniform open knot vector (use an open knot vector so first and last
@@ -476,7 +475,7 @@ def get_airfoil_BSpline_parameters():
 	}
 
 
-def get_farfield_BSpline_parameters():
+def get_farfield_BSpline_parameters(P, num_ctrl_pts_xi):
 
 	"""
 	Get the parameters for the B Spline that will be used to 
@@ -495,8 +494,8 @@ def get_farfield_BSpline_parameters():
 	"""
 
 	# Spline parameters
-	n = CONST_NUM_CONTROL_PTS_XI
-	p = CONST_P
+	n = num_ctrl_pts_xi
+	p = P
 	m = n + p + 1  # number of elements in knot vector
 
 	# Create a uniform open knot vector (use an open knot vector so first and last
@@ -637,7 +636,7 @@ def get_optimization_pts(ControlPoints_and_Weights):
 	return optimization_control_pt_list, optimization_control_pt_limit_list
 
 
-def get_patch_information():
+def get_patch_information(P, num_ctrl_pts_xi):
 
 	"""
 	Return the Patch information
@@ -654,12 +653,12 @@ def get_patch_information():
 	"""
 
 	# Get the B Spline and Farfield B Splines
-	BSpline_parameters = get_airfoil_BSpline_parameters()
-	Farfield_parameters = get_farfield_BSpline_parameters()
+	BSpline_parameters = get_airfoil_BSpline_parameters(P, num_ctrl_pts_xi)
+	Farfield_parameters = get_farfield_BSpline_parameters(P, num_ctrl_pts_xi)
 
 	xiVector = BSpline_parameters["knots"]
 	etaVector = CONST_ETA_KNOTS
-	P = CONST_P
+	P = P
 	Q = CONST_Q
 
 	# Build the control points and weights structure
@@ -705,12 +704,12 @@ def get_patch_information():
 	return patch_parameters
 
 
-def test():
+def test(P, num_ctrl_pts_xi):
 
-	get_patch_information()
+	get_patch_information(P, num_ctrl_pts_xi)
 
-	BSpline_parameters = get_airfoil_BSpline_parameters()
-	Farfield_parameters = get_farfield_BSpline_parameters()
+	BSpline_parameters = get_airfoil_BSpline_parameters(P, num_ctrl_pts_xi)
+	Farfield_parameters = get_farfield_BSpline_parameters(P, num_ctrl_pts_xi)
 
 	
 	plot_airfoil()
@@ -731,7 +730,9 @@ def test():
 
 
 if __name__ == "__main__":
-	test()
+	P = 3
+	num_ctrl_pts_xi = 15
+	test(P, num_ctrl_pts_xi)
 
 
 

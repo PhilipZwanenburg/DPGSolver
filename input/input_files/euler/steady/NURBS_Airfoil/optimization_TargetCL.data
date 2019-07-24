@@ -10,7 +10,7 @@
 // =================================================================================
 
 optimizer_spec             NLPQLP
-optimizer_nlpqlp_abs_path  /Users/jm-034232/Documents/McGill/Research/DPGSolver/NLPQLP_Optimizer
+optimizer_nlpqlp_abs_path  /home/vassili/Desktop/DPGSolver/DPGSolver/NLPQLP_Optimizer/NLPQLP_Optimizer
 optimizer_output_files_prefix  TargetCL_0.25_CM0.1255_vfc0/Structured/P2_test
 
 // =================================================================================

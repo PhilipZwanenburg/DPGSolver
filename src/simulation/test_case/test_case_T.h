@@ -112,6 +112,8 @@ struct Test_Case_T {
 
 	const double cfl_initial; ///< Initial CFL number in case \ref LHS_CFL_RAMPING is selected.
 
+	double cfl_max;           ///< Maximum CFL number in case \ref LHS_CFL_RAMPING is selected.
+
 	/// Integer indices of the 1st/2nd order numerical fluxes. See \ref definitions_test_case.h
 	const int ind_num_flux[2];
 

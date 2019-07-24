@@ -1,0 +1,43 @@
+pde_name  euler
+pde_spec  steady/NURBS_Airfoil
+
+geom_name n-cube
+geom_spec nurbs_airfoil_o_grid
+
+geometry_parameters_extension NACA0012_targetCL_tests_reference
+solution_extension NACA0012_targetCL_tests_reference
+test_case_extension NACA0012_targetCL_tests_reference
+optimization_extension NACA0012_targetCL_tests_reference
+
+dimension 2
+
+mesh_generator   n-cube/2d_stretched_const_dof.geo
+mesh_format      gmsh
+mesh_domain      parametric
+mesh_type        quad
+mesh_level       2 2
+mesh_path        ../meshes/
+
+# Simulation variables
+
+interp_tp  GL
+interp_si  WSH
+interp_pyr GLL
+
+basis_geom  bezier
+basis_sol   lagrange
+
+geom_representation  isoparametric
+geom_blending_tp     gordon_hall
+geom_blending_si     szabo_babuska_gen
+nurbs_enhanced_metrics  1
+
+p_ref    2 2
+
+fe_method 1
+
+
+# Testing variables
+
+ml_range_test 2 2
+p_range_test  2 2

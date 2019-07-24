@@ -30,6 +30,7 @@ You should have received a copy of the GNU General Public License along with DPG
 #undef set_string_associations
 #undef set_pde_related
 #undef set_method_related
+#undef set_nonlinear_solver_related
 #undef set_function_pointers
 #undef read_test_case_parameters
 #undef correct_invalid_test_case_parameters

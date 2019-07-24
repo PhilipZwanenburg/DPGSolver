@@ -74,7 +74,8 @@ FILE* constructor_optimization_progress_file(struct Optimization_Case *optimizat
 
 	// Create the optimization convergence output file
 	char f_name[4*STRLEN_MAX] = { 0, };
-	sprintf(f_name,"%s%c%s%c%s", sim->pde_name,'/',sim->pde_spec,'/',optimization_case->optimizer_output_files_prefix);
+	sprintf(f_name,"%s%c%s%c%sML%d_P%d_", sim->pde_name,'/',sim->pde_spec,'/',optimization_case->optimizer_output_files_prefix, 
+	sim->ml[0], sim->p_ref[0]);
 	strcat(f_name, "Optimization_Convergence.txt");
 
 	char output_name[STRLEN_MAX] = { 0, };
@@ -222,7 +223,8 @@ void output_NURBS_patch_information(struct Optimization_Case* optimization_case)
 	struct Simulation *sim = optimization_case->sim;
 
 	char f_name[4*STRLEN_MAX] = { 0, };
-	sprintf(f_name,"%s%c%s%c%s", sim->pde_name,'/',sim->pde_spec,'/',optimization_case->optimizer_output_files_prefix);
+	sprintf(f_name,"%s%c%s%c%sML%d_P%d_", sim->pde_name,'/',sim->pde_spec,'/',optimization_case->optimizer_output_files_prefix, 
+	sim->ml[0], sim->p_ref[0]);
 	strcat(f_name, "Optimized_NURBS_Patch.txt");
 
 	char output_name[STRLEN_MAX] = { 0, };
@@ -336,7 +338,10 @@ void output_gradient(struct Optimization_Case* optimization_case,
 	int n_dof = optimization_case->num_design_pts_dofs; // length of gradient
 
 	char f_name[4*STRLEN_MAX] = { 0, };
-	sprintf(f_name,"%s%c%s%c%s", sim->pde_name,'/',sim->pde_spec,'/',optimization_case->optimizer_output_files_prefix);
+	//sprintf(f_name,"%s%c%s%c%s%s%s%d%s%d", sim->pde_name,'/',sim->pde_spec,'/',optimization_case->optimizer_output_files_prefix,
+	//'/', "ML", sim->ml[0], "_P", sim->p_ref[0]);
+	sprintf(f_name,"%s%c%s%c%sML%d_P%d_", sim->pde_name,'/',sim->pde_spec,'/',optimization_case->optimizer_output_files_prefix, 
+	sim->ml[0], sim->p_ref[0]);
 	strcat(f_name, "Objective_Gradient.txt");
 
 	char output_name[STRLEN_MAX] = { 0, };
@@ -365,7 +370,8 @@ void output_pressure_distribution(struct Optimization_Case* optimization_case){
 	struct Simulation *sim = optimization_case->sim;
 
 	char f_name[4*STRLEN_MAX] = { 0, };
-	sprintf(f_name,"%s%c%s%c%s", sim->pde_name,'/',sim->pde_spec,'/',optimization_case->optimizer_output_files_prefix);
+	sprintf(f_name,"%s%c%s%c%sML%d_P%d_", sim->pde_name,'/',sim->pde_spec,'/',optimization_case->optimizer_output_files_prefix, 
+	sim->ml[0], sim->p_ref[0]);
 	strcat(f_name, "Pressure_Distribution.txt");
 
 	char output_name[STRLEN_MAX] = { 0, };
